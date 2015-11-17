@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<script type="text/javascript" src="angular.min.js"></script>
+<style>
+td, th {
+    border: 1px #ccc solid;
+}
+</style>
+</head>
+<div><p>November 2015</p></div>
+<div ng-app="myApp">
+
+<div ng-controller="MyCtrl">
+  <table cellspacing="0" cellpadding="0">
+   <colgroup span="7"></colgroup>
+
+   <tbody>
+     <tr class="days">
+       <th scope="col" title="Monday">Mon</th>
+       <th scope="col" title="Tuesday">Tue</th>
+       <th scope="col" title="Wednesday">Wed</th>
+       <th scope="col" title="Thursday">Thu</th>
+       <th scope="col" title="Friday">Fri</th>
+       <th scope="col" title="Saturday">Sat</th>
+       <th scope="col" title="Sunday">Sun</th>
+     </tr>
+     <tr ng-repeat="days in dates">
+         <td ng-repeat="day in days">
+             {{ day }}
+			 
+             <!-- After seven iterations a new `<tr>` should be aded -->
+        </td>
+     </tr>
+ </tbody>
+ </table>
+ Today: {{date | date:'yyyy-MM-dd'}}<br/> 
+</div>
+
+</div>
+
+
+<script>
+window.myApp = this.angular.module('myApp', []);
+
+var monthDays = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
+
+myApp.controller('MyCtrl', function($scope) {
+    var dates = [];
+    for (var i = 0; i < monthDays.length; i++ ) {
+        if (i % 7 == 0) dates.push([]);
+        dates[dates.length-1].push(monthDays[i]);
+    }
+	$scope.date = new Date();
+  return $scope.dates = dates;
+  
+});
+
+
+
+</script>
